@@ -20,10 +20,13 @@
 |Docker|20.10.12|
 |Redis|미적용|
 
-<img src="./markdown/icon/springBoot.png" height="150px" width="150px">
-<img src="./markdown/icon/mariadb.png" height="150px" width="150px">
-<img src="./markdown/icon/docker.png" height="150px" width="150px">
-<img src="./markdown/icon/redis.png" height="150px" width="150px">
+<div style="display: flex">
+  <img src="./markdown/icons/springBoot.png" height="150px" width="150px">
+  <img src="./markdown/icons/mariadb.png" height="150px" width="150px">
+  <img src="./markdown/icons/docker.png" height="150px" width="150px">
+  <img src="./markdown/icons/redis.png" height="150px" width="150px">
+</div>
+
 
 #### 프런트엔드 기술 스택
 |이름|버전|
@@ -33,10 +36,13 @@
 |tailwindCSS|미적용|
 |React Query|미적용|
 
-<img src="./markdown/icon/react.jpeg" height="150px" width="150px">
-<img src="./markdown/icon/emotion.png" height="150px" width="150px">
-<img src="./markdown/icon/tailwind.png" height="150px" width="150px">
-<img src="./markdown/icon/react-query.svg" height="150px" width="150px">
+<div style="display: flex">
+  <img src="./markdown/icons/react.jpeg" height="150px" width="150px">
+  <img src="./markdown/icons/emotion.png" height="150px" width="150px">
+  <img src="./markdown/icons/tailwind.jpg" height="150px" width="150px">
+  <img src="./markdown/icons/react-query.svg" height="150px" width="150px">
+</div>
+
 
 * * *
 ## 프로젝트 목적
