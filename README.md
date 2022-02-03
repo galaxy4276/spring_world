@@ -27,7 +27,6 @@
   <img src="./markdown/icons/redis.png" height="150px" width="150px">
 </div>
 
-
 #### 프런트엔드 기술 스택
 |이름|버전|
 |---|---|
@@ -43,7 +42,6 @@
   <img src="./markdown/icons/react-query.svg" height="150px" width="150px">
 </div>
 
-
 * * *
 ## 프로젝트 목적
 * Spring Boot 프레임워크에 대한 이해도 및 실력 향상
@@ -54,6 +52,7 @@
 * 리액트를 사용하는 개발 실력 향상
 * 웹에 대한 심화적인 이해
 * 웹 소켓에 대해 이해도 및 실력 향상
+
 ***
 ## 커밋 규칙
 | 이름       | 내용    |
