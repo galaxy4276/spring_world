@@ -27,7 +27,6 @@
   <img src="./markdown/icons/redis.png" height="150px" width="150px">
 </div>
 
-
 #### 프런트엔드 기술 스택
 |이름|버전|
 |---|---|
@@ -42,7 +41,6 @@
   <img src="./markdown/icons/tailwind.jpg" height="150px" width="150px">
   <img src="./markdown/icons/react-query.svg" height="150px" width="150px">
 </div>
-
 
 * * *
 ## 프로젝트 목적
