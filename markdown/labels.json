@@ -1,22 +1,22 @@
 [
   {
     "name": "critical",
-    "color": "#d73a4a",
+    "color": "#d9534f",
     "description": "긴급한 이슈 또는 PR"
   },
   {
     "name": "warn",
-    "color": "#ff5a00",
+    "color": "#ffad60",
     "description": "주의가 필요한 이슈 또는 PR"
   },
   {
     "name": "frontend",
-    "color": "#ff6289",
+    "color": "#ffb3ba",
     "description": "프런트엔드 관련"
   },
   {
     "name": "backend",
-    "color": "#0392cf",
+    "color": "bae1ff",
     "description": "백엔드 관련"
   },
   {
@@ -33,5 +33,10 @@
     "name": "modify",
     "color": "#49ab81",
     "description": "코드 수정 및 문제 수정용 라벨"
+  },
+  {
+  "name": "feature",
+  "color": "#5cb85c",
+  "description": "새롭게 추가된 기능"
   }
 ]
