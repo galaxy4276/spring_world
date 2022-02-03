@@ -1,0 +1,37 @@
+[
+  {
+    "name": "critical",
+    "color": "#d73a4a",
+    "description": "긴급한 이슈 또는 PR"
+  },
+  {
+    "name": "warn",
+    "color": "#ff5a00",
+    "description": "주의가 필요한 이슈 또는 PR"
+  },
+  {
+    "name": "frontend",
+    "color": "#ff6289",
+    "description": "프런트엔드 관련"
+  },
+  {
+    "name": "backend",
+    "color": "#0392cf",
+    "description": "백엔드 관련"
+  },
+  {
+    "name": "test",
+    "color": "#c51f5d",
+    "description": "테스트를 위한 라벨"
+  },
+  {
+    "name": "draft",
+    "color": "#faebd7",
+    "description": "아직 준비되지 않은 이슈 또는 PR"
+  },
+  {
+    "name": "modify",
+    "color": "#49ab81",
+    "description": "코드 수정 및 문제 수정용 라벨"
+  }
+]
