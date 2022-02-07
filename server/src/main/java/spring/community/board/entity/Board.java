@@ -1,14 +1,10 @@
 package spring.community.board.entity;
 
 import lombok.*;
-import org.hibernate.annotations.GenerationTime;
 import spring.community.helper.entity.FullTimeStamp;
 import spring.community.user.entity.User;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -35,12 +31,8 @@ public class Board {
   @Embedded
   private FullTimeStamp fullTimeStamp;
 
-  @OneToMany(mappedBy = "board")
-  List<User> users = new ArrayList<>();
+  @ManyToOne
+  @JoinColumn(name = "user", referencedColumnName = "id")
+  private User user;
 
-  @OneToMany(mappedBy = "board")
-  List<Like> likeList = new ArrayList<>();
-
-  @OneToMany(mappedBy = "board")
-  List<Comment> commentList = new ArrayList<>();
 }
