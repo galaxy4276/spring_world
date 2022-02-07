@@ -5,8 +5,6 @@ import spring.community.helper.entity.FullTimeStamp;
 import spring.community.user.entity.User;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
