@@ -2,6 +2,7 @@ package spring.community.board.entity;
 
 import lombok.*;
 import org.hibernate.annotations.GenerationTime;
+import spring.community.helper.entity.FullTimeStamp;
 import spring.community.user.entity.User;
 
 import javax.persistence.*;
@@ -31,21 +32,8 @@ public class Board {
   @Enumerated(EnumType.ORDINAL)
   private BoardType type;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @org.hibernate.annotations.Generated(GenerationTime.INSERT)
-  @Column(name = "created_at", updatable = false, insertable = false, nullable = false,
-          columnDefinition = "timestamp default CURRENT_TIMESTAMP")
-  private Date createdAt;
-
-  @org.hibernate.annotations.Generated(GenerationTime.ALWAYS)
-  @Column(name = "updated_at", insertable = false, nullable = false,
-          columnDefinition = "timestamp default CURRENT_TIMESTAMP")
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date updatedAt;
-
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "deleted_at")
-  private Date deletedAt;
+  @Embedded
+  private FullTimeStamp fullTimeStamp;
 
   @OneToMany(mappedBy = "board")
   List<User> users = new ArrayList<>();
