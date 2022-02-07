@@ -50,4 +50,9 @@ public class Board {
   @OneToMany(mappedBy = "board")
   List<User> users = new ArrayList<>();
 
+  @OneToMany(mappedBy = "board")
+  List<Like> likeList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "board")
+  List<Comment> commentList = new ArrayList<>();
 }

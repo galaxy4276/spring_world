@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import spring.community.board.entity.Board;
+import spring.community.board.entity.Comment;
+import spring.community.board.entity.Like;
 import spring.community.user.dto.UserDto;
 
 import javax.persistence.*;
@@ -68,6 +70,12 @@ public class User {
 
   @OneToMany(mappedBy = "user")
   private List<UserRole> userRoleList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "user")
+  private List<Like> likeList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "user")
+  private List<Comment> commentList = new ArrayList<>();
 
   @ManyToOne
   @JoinColumn(name = "forgotPasswordService", referencedColumnName = "id")
