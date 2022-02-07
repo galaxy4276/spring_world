@@ -38,5 +38,10 @@
   "name": "feature",
   "color": "#5cb85c",
   "description": "새롭게 추가된 기능"
+  },
+  {
+    "name": "refactor",
+    "color": "#6A5495",
+    "description": "새롭게 추가된 기능"
   }
 ]
