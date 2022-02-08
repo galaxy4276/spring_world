@@ -4,7 +4,6 @@ import spring.community.exception.FaultSetBuilderAttributesException;
 import spring.community.helper.entity.FullTimeStamp;
 import spring.community.user.entity.User;
 
-import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -12,8 +11,8 @@ import java.util.stream.Stream;
 public class UserBuilder {
   private final User user;
 
-  public UserBuilder(User user) {
-    this.user = user;
+  public UserBuilder() {
+    this.user = new User();
   }
 
   public UserBuilder setId(Long id) {
@@ -46,18 +45,22 @@ public class UserBuilder {
   }
 
   public User build() throws FaultSetBuilderAttributesException {
-    if (Stream.of(
-            user.getId(),
-            user.getName(),
-            user.getPassword(),
-            user.getEmail(),
-            user.getFullTimeStamp().getCreatedAt(),
-            user.getFullTimeStamp().getUpdatedAt(),
-            user.getFullTimeStamp().getDeletedAt()
-    ).allMatch(Objects::isNull)) {
-      throw new FaultSetBuilderAttributesException("필드 설정이 잘못되었습니다.");
+    try {
+      boolean isNullCheckToFields = Stream.of(
+                      user.getId(),
+                      user.getName(),
+                      user.getPassword(),
+                      user.getEmail(),
+                      user.getFullTimeStamp().getCreatedAt(),
+                      user.getFullTimeStamp().getUpdatedAt()
+              )
+              .anyMatch(Objects::isNull);
+      if (isNullCheckToFields)
+        throw new FaultSetBuilderAttributesException();
+      return this.user;
+    } catch (NullPointerException e) {
+      throw new FaultSetBuilderAttributesException();
     }
-    return this.user;
   }
 
 }

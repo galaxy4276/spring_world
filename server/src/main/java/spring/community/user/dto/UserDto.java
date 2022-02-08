@@ -10,6 +10,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @ToString
+@Builder
 public class UserDto {
   private Long id;
   private String name;
@@ -19,7 +20,6 @@ public class UserDto {
   private Date updatedAt;
   private Date deletedAt;
 
-  @Builder
   public UserDto(Long id, String name, String password, String email, Date createdAt, Date updatedAt, Date deletedAt) {
     this.id = id;
     this.name = name;
@@ -31,7 +31,7 @@ public class UserDto {
   }
 
   public User toEntity() throws FaultSetBuilderAttributesException {
-    return new UserBuilder(new User())
+    return new UserBuilder()
             .setId(id)
             .setName(name)
             .setPassword(password)
