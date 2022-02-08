@@ -67,19 +67,7 @@ public class User {
   }
 
   @OneToMany(mappedBy = "user")
-  private List<UserRole> userRoleList = new ArrayList<>();
-
-  @ManyToOne
-  @JoinColumn(name = "forgotPasswordService", referencedColumnName = "id")
-  private ForgotPasswordService forgotPasswordService;
-
-  @ManyToOne
-  @JoinColumn(name = "forgotPasswordServiceLog", referencedColumnName = "id")
-  private ForgotPasswordServiceLog forgotPasswordServiceLog;
-
-  @ManyToOne
-  @JoinColumn(name = "board", referencedColumnName = "id")
-  private Board board;
+  private final List<UserRole> userRoleList = new ArrayList<>();
 
 }
 
