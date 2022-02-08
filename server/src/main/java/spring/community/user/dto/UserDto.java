@@ -1,13 +1,16 @@
 package spring.community.user.dto;
 
 import lombok.*;
+import spring.community.exception.FaultSetBuilderAttributesException;
 import spring.community.user.entity.User;
+import spring.community.user.entity.builder.UserBuilder;
 
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @ToString
+@Builder
 public class UserDto {
   private Long id;
   private String name;
@@ -17,7 +20,6 @@ public class UserDto {
   private Date updatedAt;
   private Date deletedAt;
 
-  @Builder
   public UserDto(Long id, String name, String password, String email, Date createdAt, Date updatedAt, Date deletedAt) {
     this.id = id;
     this.name = name;
@@ -28,15 +30,13 @@ public class UserDto {
     this.deletedAt = deletedAt;
   }
 
-  public User toEntity() {
-    return User.builder()
-            .id(id)
-            .email(email)
-            .name(name)
-            .password(password)
-            .createdAt(createdAt)
-            .updatedAt(updatedAt)
-            .deletedAt(deletedAt)
+  public User toEntity() throws FaultSetBuilderAttributesException {
+    return new UserBuilder()
+            .setId(id)
+            .setName(name)
+            .setPassword(password)
+            .setEmail(email)
+            .setTimeTable(createdAt, updatedAt, deletedAt)
             .build();
   }
 
