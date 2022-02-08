@@ -1,32 +1,19 @@
 package spring.community.board.entity;
 
-import lombok.*;
 import spring.community.helper.entity.FullTimeStamp;
 import spring.community.user.entity.User;
 
 import javax.persistence.*;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Getter
-@Setter
-@Table(name = "boards")
-public class Board {
-
+@Table(name = "replies")
+public class Reply {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "title", length = 50, nullable = false)
-  private String title;
-
-  @Column(name = "content", length = 500, nullable = false)
+  @Column(nullable = false, length = 255)
   private String content;
-
-  @Enumerated(EnumType.ORDINAL)
-  private BoardType type;
 
   @Embedded
   private FullTimeStamp fullTimeStamp;
@@ -34,5 +21,9 @@ public class Board {
   @ManyToOne
   @JoinColumn(name = "user", referencedColumnName = "id")
   private User user;
+
+  @ManyToOne
+  @JoinColumn(name = "board", referencedColumnName = "id")
+  private Board board;
 
 }

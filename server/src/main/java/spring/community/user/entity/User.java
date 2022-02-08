@@ -4,14 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-import spring.community.board.entity.Board;
+import spring.community.helper.entity.FullTimeStamp;
 import spring.community.user.dto.UserDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -35,24 +32,10 @@ public class User {
   @Column(name = "email", nullable = false)
   private String email;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Generated(GenerationTime.INSERT)
-  @Column(name = "created_at", updatable = false, insertable = false, nullable = false,
-          columnDefinition = "timestamp default CURRENT_TIMESTAMP")
-  private Date createdAt;
+  @Embedded
+  private FullTimeStamp fullTimeStamp;
 
-  @Generated(GenerationTime.ALWAYS)
-  @Column(name = "updated_at", insertable = false, nullable = false,
-          columnDefinition = "timestamp default CURRENT_TIMESTAMP")
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date updatedAt;
-
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "deleted_at")
-  private Date deletedAt;
-
-  public User() {
-  }
+  public User() { }
 
   public UserDto toUserDto() {
     return UserDto.builder()
@@ -60,9 +43,9 @@ public class User {
             .name(name)
             .email(email)
             .password(password)
-            .createdAt(createdAt)
-            .updatedAt(updatedAt)
-            .deletedAt(deletedAt)
+            .createdAt(fullTimeStamp.getCreatedAt())
+            .updatedAt(fullTimeStamp.getUpdatedAt())
+            .deletedAt(fullTimeStamp.getDeletedAt())
             .build();
   }
 
