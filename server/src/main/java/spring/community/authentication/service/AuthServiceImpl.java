@@ -11,6 +11,7 @@ public class AuthServiceImpl implements AuthService {
 
   private final UserRepository userRepository;
   private final MailService mailService;
+
   private final SignupVerificationRepository signupVerificationRepository;
 
   public AuthServiceImpl(
