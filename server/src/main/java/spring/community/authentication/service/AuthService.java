@@ -7,4 +7,6 @@ public interface AuthService {
 
   void signup();
 
+  void sendSignupVerificationUrl(String email);
+
 }
