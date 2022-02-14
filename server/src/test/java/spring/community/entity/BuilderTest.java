@@ -2,6 +2,8 @@ package spring.community.entity;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import spring.community.exception.FaultSetBuilderAttributesException;
 import spring.community.user.entity.User;
@@ -10,6 +12,7 @@ import spring.community.user.entity.builder.UserBuilder;
 
 import java.util.Date;
 
+@DisplayName("엔티티 빌더 생성 테스트")
 public class BuilderTest {
   UserBuilder userBuilder = new UserBuilder();
   RoleBuilder roleBuilder = new RoleBuilder();
