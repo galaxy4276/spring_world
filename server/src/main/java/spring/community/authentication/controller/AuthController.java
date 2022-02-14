@@ -1,12 +1,14 @@
 package spring.community.authentication.controller;
 
+import org.springframework.http.ResponseEntity;
+import spring.community.authentication.dto.SignupDto;
 import spring.community.helper.annotation.Draft;
 
 @Draft(progress = "메서드 이름만 정의")
 public interface AuthController {
 
   // 사용자 회원가입을 수행합니다.
-  String signup();
+  ResponseEntity<Void> signup(SignupDto signupDto);
 
   // 회원가입 진행 중 사용자 인증용 이메일을 발송합니다.
   void sendSignupCodeToEmail(String email);
