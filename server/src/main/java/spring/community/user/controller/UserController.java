@@ -18,9 +18,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("userTest")
 public class UserController {
+  private final UserService userService;
 
-  @Autowired
-  UserService userService;
+  public UserController(UserService userService) {
+    this.userService = userService;
+  }
 
 
   @Operation(summary = "유저 id로 찾기")

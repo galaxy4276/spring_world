@@ -22,13 +22,9 @@ public class MailServiceImpl implements MailService {
   }
 
   @Override
-  public void sendUserJoinVerificationMail() {
-
-  }
+  public void sendUserJoinVerificationMail() {}
 
   @Override
-  public void sendUserOneTimePasswordVerificationMail() {
-
-  }
+  public void sendUserOneTimePasswordVerificationMail() {}
 
 }
