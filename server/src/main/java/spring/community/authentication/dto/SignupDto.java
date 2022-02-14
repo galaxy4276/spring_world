@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.*;
 
 @Data
-public class SignUpDto {
+public class SignupDto {
 
   @Min(3)
   @Max(13)
