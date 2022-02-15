@@ -47,12 +47,9 @@ public class UserBuilder {
   public User build() throws FaultSetBuilderAttributesException {
     try {
       boolean isNullCheckToFields = Stream.of(
-                      user.getId(),
                       user.getName(),
                       user.getPassword(),
-                      user.getEmail(),
-                      user.getFullTimeStamp().getCreatedAt(),
-                      user.getFullTimeStamp().getUpdatedAt()
+                      user.getEmail()
               )
               .anyMatch(Objects::isNull);
       if (isNullCheckToFields)
