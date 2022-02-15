@@ -1,13 +1,14 @@
 package spring.community.helper.entity;
 
+import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Optional;
 
+@Getter
 @Setter
 @Embeddable
 public class FullTimeStamp {
@@ -27,9 +28,5 @@ public class FullTimeStamp {
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "deleted_at")
   private Date deletedAt;
-
-  public Date getCreatedAt() { return createdAt; }
-  public Date getUpdatedAt() { return updatedAt; }
-  public Date getDeletedAt() { return deletedAt; }
 
 }
