@@ -31,7 +31,7 @@ public class Board {
   @Embedded
   private FullTimeStamp fullTimeStamp;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user", referencedColumnName = "id")
   private User user;
 

@@ -23,7 +23,7 @@ public class Comment {
   @JoinColumn(name = "board")
   private Board board;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user")
   private User user;
 

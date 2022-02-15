@@ -9,7 +9,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Getter
-@Setter
 @Table(name = "user_roles")
 public class UserRole {
 
@@ -17,11 +16,11 @@ public class UserRole {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user", referencedColumnName = "id")
   private User user;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "role", referencedColumnName = "id")
   private Role role;
 }

@@ -18,11 +18,11 @@ public class Reply {
   @Embedded
   private FullTimeStamp fullTimeStamp;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user", referencedColumnName = "id")
   private User user;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "board", referencedColumnName = "id")
   private Board board;
 

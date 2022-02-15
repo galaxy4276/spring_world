@@ -10,7 +10,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Getter
-@Setter
 @Table(name = "forgot_password_service")
 public class ForgotPasswordService {
 
@@ -28,7 +27,7 @@ public class ForgotPasswordService {
   @Embedded
   private CreateTimeStamp createTimeStamp;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user", referencedColumnName = "id")
   private User user;
 }
