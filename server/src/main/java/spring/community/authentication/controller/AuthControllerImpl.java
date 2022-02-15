@@ -5,18 +5,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import spring.community.authentication.dto.SignupDto;
+import org.springframework.web.bind.annotation.*;
+import spring.community.authentication.dto.SignupRequestDto;
 import spring.community.authentication.service.AuthService;
 import javax.validation.Valid;
 
 
 @Tag(name = "인증 API", description = "사용자 인증을 수행합니다.")
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("auth")
 public class AuthControllerImpl implements AuthController {
 
   private final AuthService authService;
@@ -26,10 +23,13 @@ public class AuthControllerImpl implements AuthController {
   }
 
   @Override
-  @GetMapping("/")
+  @PostMapping("")
   @Operation(summary = "회원가입")
-  public ResponseEntity<Void> signup(@RequestBody @Valid SignupDto signupDto) {
+  public ResponseEntity<Void> signup(@RequestBody @Valid SignupRequestDto signupRequestDto) throws Exception {
+    System.out.println(signupRequestDto.toString());
+    authService.signup(signupRequestDto);
     return new ResponseEntity<Void>(HttpStatus.OK);
+  }
 
   @Override
   public void sendSignupCodeToEmail(String email) {}
