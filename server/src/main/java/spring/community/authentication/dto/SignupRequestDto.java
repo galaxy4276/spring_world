@@ -1,16 +1,19 @@
 package spring.community.authentication.dto;
 
 import lombok.Data;
+import spring.community.exception.FaultSetBuilderAttributesException;
+import spring.community.user.entity.User;
+import spring.community.user.entity.builder.UserBuilder;
 
 import javax.validation.constraints.*;
 
 @Data
-public class SignupDto {
+public class SignupRequestDto {
 
-  @Min(3)
-  @Max(13)
+//  @Min(3)
+//  @Max(13)
   @NotBlank(message = "사용자 이름은 빈 값일 수 없습니다.")
-  @Pattern(regexp = "(^\\D)(\\w|[가-힣]){2,12}")
+  @Pattern(regexp = "(^\\D)(\\w|[가-힣]){2,12}", message = "사용자 이름 형식이 맞지 않습니다.")
   private String username;  // (^\D)(\w|[가-힣]){2,12}
 
   @NotBlank(message = "비밀번호는 빈 값일 수 없습니다.")
@@ -18,6 +21,14 @@ public class SignupDto {
 
   @Email(message = "이메일 형식이 아닙니다.")
   private String email;
+
+  public User toUserEntity() throws FaultSetBuilderAttributesException {
+    return new UserBuilder()
+      .setName(username)
+      .setPassword(password)
+      .setEmail(email)
+      .build();
+  }
 
   @Override
   public String toString() {
@@ -27,4 +38,5 @@ public class SignupDto {
       ", email='" + email + '\'' +
       '}';
   }
+
 }

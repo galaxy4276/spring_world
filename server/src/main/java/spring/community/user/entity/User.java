@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import spring.community.authentication.entity.SignupVerification;
 import spring.community.helper.entity.FullTimeStamp;
 import spring.community.user.dto.UserDto;
 
@@ -15,7 +16,6 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@Builder
 @Table(name = "users")
 public class User {
 
@@ -52,5 +52,7 @@ public class User {
   @OneToMany(mappedBy = "user")
   private final List<UserRole> userRoleList = new ArrayList<>();
 
-}
+  @OneToOne(mappedBy = "user")
+  private SignupVerification signupVerification;
 
+}
