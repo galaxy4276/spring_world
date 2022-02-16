@@ -1,23 +1,19 @@
 package spring.community.user.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import spring.community.authentication.entity.SignupVerification;
-import spring.community.helper.entity.FullTimeStamp;
+import spring.community.helper.entity.FullTimeDate;
 import spring.community.user.dto.UserDto;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-@Setter
-@AllArgsConstructor
+@SuperBuilder
 @Table(name = "users")
-public class User {
+public class User extends FullTimeDate {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,25 +28,20 @@ public class User {
   @Column(name = "email", nullable = false)
   private String email;
 
-  @Embedded
-  private FullTimeStamp fullTimeStamp;
-
-  public User() { }
-
   public UserDto toUserDto() {
     return UserDto.builder()
-            .id(id)
-            .name(name)
-            .email(email)
-            .password(password)
-            .createdAt(fullTimeStamp.getCreatedAt())
-            .updatedAt(fullTimeStamp.getUpdatedAt())
-            .deletedAt(fullTimeStamp.getDeletedAt())
+            .setId(id)
+            .setName(name)
+            .setEmail(email)
+            .setCreatedAt(createdAt)
+            .setUpdatedAt(updatedAt)
+            .setDeletedAt(deletedAt)
+            .setPassword(password)
             .build();
   }
 
   @OneToMany(mappedBy = "user")
-  private final List<UserRole> userRoleList = new ArrayList<>();
+  private List<UserRole> userRoleList;
 
   @OneToOne(mappedBy = "user")
   private SignupVerification signupVerification;
