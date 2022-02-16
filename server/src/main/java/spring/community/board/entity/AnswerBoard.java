@@ -1,18 +1,17 @@
 package spring.community.board.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import spring.community.helper.entity.FullTimeBaseEntity;
 import spring.community.user.entity.User;
 
 import javax.persistence.*;
 
+@SuperBuilder(setterPrefix = "set")
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Getter
-@Setter
 @Table(name = "answer_boards")
-public class AnswerBoard {
+public class AnswerBoard extends FullTimeBaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +27,5 @@ public class AnswerBoard {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user", referencedColumnName = "id")
   private User user;
+
 }

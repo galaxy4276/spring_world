@@ -1,17 +1,17 @@
-package spring.community.user.entity;
+package spring.community.authentication.entity;
 
 import lombok.*;
-import spring.community.helper.entity.CreateTimeStamp;
+import lombok.experimental.SuperBuilder;
+import spring.community.helper.entity.CreateTimeBaseEntity;
+import spring.community.user.entity.User;
 
 import javax.persistence.*;
 
+@SuperBuilder(setterPrefix = "set")
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Getter
 @Table(name = "forgot_password_service_log")
-public class ForgotPasswordServiceLog {
+public class ForgotPasswordServiceLog extends CreateTimeBaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -19,9 +19,6 @@ public class ForgotPasswordServiceLog {
   @Column(name = "is_success_change", nullable = false,
           columnDefinition = "boolean default false")
   private boolean isSuccessChange;
-
-  @Embedded
-  private CreateTimeStamp createTimeStamp;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user", referencedColumnName = "id")

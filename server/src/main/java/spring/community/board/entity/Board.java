@@ -1,18 +1,17 @@
 package spring.community.board.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import spring.community.helper.entity.FullTimeBaseEntity;
 import spring.community.user.entity.User;
 
 import javax.persistence.*;
 
+@SuperBuilder(setterPrefix = "set")
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Getter
-@Setter
 @Table(name = "boards")
-public class Board {
+public class Board extends FullTimeBaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

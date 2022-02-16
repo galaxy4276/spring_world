@@ -1,19 +1,17 @@
 package spring.community.user.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import spring.community.helper.entity.TimeWithoutDeletedBaseEntity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
+@SuperBuilder(setterPrefix = "set")
 @Entity
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "roles")
-public class Role {
+public class Role extends TimeWithoutDeletedBaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +21,6 @@ public class Role {
   private String name;
 
   @OneToMany(mappedBy = "role")
-  private final List<UserRole> userRoleList = new ArrayList<>();
+  private final List<UserRole> userRoleList;
 
 }

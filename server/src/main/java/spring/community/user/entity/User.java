@@ -3,7 +3,7 @@ package spring.community.user.entity;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import spring.community.authentication.entity.SignupVerification;
-import spring.community.helper.entity.FullTimeDate;
+import spring.community.helper.entity.FullTimeBaseEntity;
 import spring.community.user.dto.UserDto;
 
 import javax.persistence.*;
@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @SuperBuilder
 @Table(name = "users")
-public class User extends FullTimeDate {
+public class User extends FullTimeBaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
