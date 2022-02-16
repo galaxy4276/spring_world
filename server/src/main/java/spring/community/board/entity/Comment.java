@@ -1,6 +1,5 @@
 package spring.community.board.entity;
 
-import spring.community.helper.entity.FullTimeStamp;
 import spring.community.user.entity.User;
 
 import javax.persistence.*;
@@ -15,9 +14,6 @@ public class Comment {
 
   @Column(nullable = false, length = 255)
   private String content;
-
-  @Embedded
-  private FullTimeStamp fullTimeStamp;
 
   @ManyToOne
   @JoinColumn(name = "board")

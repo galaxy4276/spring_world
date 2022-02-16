@@ -1,6 +1,5 @@
 package spring.community.board.entity;
 
-import spring.community.helper.entity.FullTimeStamp;
 import spring.community.user.entity.User;
 
 import javax.persistence.*;
@@ -14,9 +13,6 @@ public class Reply {
 
   @Column(nullable = false, length = 255)
   private String content;
-
-  @Embedded
-  private FullTimeStamp fullTimeStamp;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user", referencedColumnName = "id")

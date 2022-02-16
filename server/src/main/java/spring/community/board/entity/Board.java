@@ -1,7 +1,6 @@
 package spring.community.board.entity;
 
 import lombok.*;
-import spring.community.helper.entity.FullTimeStamp;
 import spring.community.user.entity.User;
 
 import javax.persistence.*;
@@ -27,9 +26,6 @@ public class Board {
 
   @Enumerated(EnumType.ORDINAL)
   private BoardType type;
-
-  @Embedded
-  private FullTimeStamp fullTimeStamp;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user", referencedColumnName = "id")
