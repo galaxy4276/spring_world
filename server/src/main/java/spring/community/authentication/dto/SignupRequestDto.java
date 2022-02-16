@@ -1,9 +1,8 @@
 package spring.community.authentication.dto;
 
 import lombok.Data;
-import spring.community.exception.FaultSetBuilderAttributesException;
+import spring.community.user.dto.UserDto;
 import spring.community.user.entity.User;
-import spring.community.user.entity.builder.UserBuilder;
 
 import javax.validation.constraints.*;
 
@@ -22,12 +21,13 @@ public class SignupRequestDto {
   @Email(message = "이메일 형식이 아닙니다.")
   private String email;
 
-  public User toUserEntity() throws FaultSetBuilderAttributesException {
-    return new UserBuilder()
+  public User toUserEntity() {
+    return UserDto.builder()
       .setName(username)
       .setPassword(password)
       .setEmail(email)
-      .build();
+      .build()
+      .toEntity();
   }
 
   @Override
