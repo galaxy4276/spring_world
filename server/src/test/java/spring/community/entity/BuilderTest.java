@@ -1,43 +1,43 @@
 package spring.community.entity;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import spring.community.exception.FaultSetBuilderAttributesException;
+import spring.community.user.dto.UserDto;
 import spring.community.user.entity.User;
-
-import java.util.Date;
 
 @DisplayName("엔티티 빌더 생성 테스트")
 public class BuilderTest {
-//  UserBuilder userBuilder = new UserBuilder();
-//  RoleBuilder roleBuilder = new RoleBuilder();
-// TODO: 22. 2. 16. 테스트 다시 작성할 예정
+  private UserDto userDto;
+  private User user;
+
   @Test
-  void UserBuilder_필드설정이_빠져있다면_예외발생() {
-    assertThrows(FaultSetBuilderAttributesException.class, () -> {
-    });
+  void userDto가_정상적으로_생성된다() {
+    String 이게_사람이름이냐 = "엄준식";
+    UserDto userDto = UserDto.builder()
+      .setName(이게_사람이름이냐)
+      .setPassword("@Umjunsik12")
+      .setEmail("icantBelieve@howumispeople.name")
+      .build();
+    this.userDto = userDto;
+    assertThat(userDto).isInstanceOf(UserDto.class);
+    assertThat(userDto.getName()).isSameAs(이게_사람이름이냐);
   }
 
   @Test
-  void UserBuilder_필드설정이_올바르다면_통과() throws FaultSetBuilderAttributesException {
-//    User user = userBuilder
-//            .setId(1L)
-//            .setName("엄준식")
-//            .setEmail("isUmHowPeople@name.com")
-//            .setTimeTable(new Date(), new Date(), null)
-//            .setPassword("@IsUmICantBelieve12")
-//            .build();
-//    assertThat(user).isInstanceOf(User.class);
+  void userDto를_User엔티티로_성공적으로_변환한다() {
+    User user = userDto.toEntity();
+    this.user = user;
+    assertThat(user).isInstanceOf(User.class);
+    assertThat(user.getName()).isSameAs("엄준식");
   }
 
   @Test
-  void RoleBuilder_필드설정이_빠져있다면_예외발생() {
-    assertThrows(FaultSetBuilderAttributesException.class, () -> {
-//      roleBuilder.build();
-    });
+  void User엔티티를_userDto로_성공적으로_변환한다() {
+     UserDto successfullyDto = user.toUserDto();
+     assertThat(successfullyDto).isInstanceOf(user.getClass());
+     assertThat(successfullyDto.getName()).isSameAs("엄준식");
   }
 
 }
