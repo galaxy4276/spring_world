@@ -1,6 +1,7 @@
 package spring.community.authentication.service;
 
 import org.springframework.stereotype.Service;
+import spring.community.authentication.service.interfaces.GenerateAuthKeyService;
 
 import java.util.UUID;
 

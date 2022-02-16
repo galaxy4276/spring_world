@@ -1,4 +1,4 @@
-package spring.community.authentication.service;
+package spring.community.authentication.service.interfaces;
 
 import spring.community.authentication.dto.SignupRequestDto;
 import spring.community.helper.annotation.Draft;

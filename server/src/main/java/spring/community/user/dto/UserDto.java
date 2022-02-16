@@ -20,13 +20,13 @@ public class UserDto {
 
   public User toEntity() {
     return User.builder()
-      .id(id)
-      .name(name)
-      .password(password)
-      .email(email)
-      .createdAt(createdAt)
-      .updatedAt(updatedAt)
-      .deletedAt(deletedAt)
+      .setId(id)
+      .setName(name)
+      .setPassword(password)
+      .setEmail(email)
+      .setCreatedAt(createdAt)
+      .setUpdatedAt(updatedAt)
+      .setDeletedAt(deletedAt)
       .build();
   }
 
