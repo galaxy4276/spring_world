@@ -9,11 +9,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@SuperBuilder
+@SuperBuilder()
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class FullTimeDate {
+public abstract class FullTimeBaseEntity {
 
   @CreatedDate
   @Column(updatable = false)
