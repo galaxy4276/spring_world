@@ -3,7 +3,7 @@ package spring.community.mail;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
-import spring.community.authentication.service.GenerateAuthKeyService;
+import spring.community.authentication.service.interfaces.GenerateAuthKeyService;
 
 @Component
 public class MailServiceImpl implements MailService {

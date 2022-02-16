@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@SuperBuilder()
+@SuperBuilder(setterPrefix = "set")
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)

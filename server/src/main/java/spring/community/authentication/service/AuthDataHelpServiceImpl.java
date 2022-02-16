@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import spring.community.authentication.dto.SignupVerificationDto;
 import spring.community.authentication.entity.SignupVerification;
 import spring.community.authentication.repository.SignupVerificationRepository;
+import spring.community.authentication.service.interfaces.AuthDataHelpService;
+import spring.community.authentication.service.interfaces.GenerateAuthKeyService;
 import spring.community.user.entity.User;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @desc 비즈니스 로직에 필요한 데이터끼리의 직렬화/역직렬화 같은 유틸 기능을 제공합니다.
@@ -29,6 +31,11 @@ public class AuthDataHelpServiceImpl implements AuthDataHelpService {
       });
   }
 
+  @Override
+  public LocalDateTime getExpiredDateByNow(Integer minutes) {
+    return LocalDateTime.now().plusMinutes(minutes);
+  }
+
   private SignupVerification createSVEntityByDto(SignupVerificationDto svDto) {
     return SignupVerification.builder()
       .setId(svDto.getId())
@@ -44,8 +51,7 @@ public class AuthDataHelpServiceImpl implements AuthDataHelpService {
     return SignupVerificationDto.builder()
       .setId(user.getId())
       .setToken(generateAuthKeyService.GenerateSignupToken())
-      .setCreatedAt(null) // TODO: 22. 2. 16. 맞는 값 넣기
-      .setExpiredAt(null) // TODO: 22. 2. 15. 추가 기간 더해서 수정해야함
+      .setExpiredAt(getExpiredDateByNow(30))
       .setUser(user)
       .setIsVerified(false)
       .build();
