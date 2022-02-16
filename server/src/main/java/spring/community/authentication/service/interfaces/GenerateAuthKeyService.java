@@ -1,4 +1,4 @@
-package spring.community.authentication.service;
+package spring.community.authentication.service.interfaces;
 
 public interface GenerateAuthKeyService {
 
