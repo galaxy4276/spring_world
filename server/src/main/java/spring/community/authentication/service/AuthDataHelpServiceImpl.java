@@ -23,24 +23,31 @@ public class AuthDataHelpServiceImpl implements AuthDataHelpService {
   public SignupVerification findOrCreateSVByUser(User user) {
     return signupVerificationRepository.findByUserId(user.getId())
       .orElseGet(() -> {
-        SignupVerification newSV = createSVByDto(createSVDtoByUser(user));
+        SignupVerification newSV = createSVEntityByDto(createSVDtoByUser(user));
         signupVerificationRepository.save(newSV);
         return newSV;
       });
   }
 
-  private SignupVerification createSVByDto(SignupVerificationDto svDto) {
-    return new SignupVerification.SVBuilder(svDto).build();
+  private SignupVerification createSVEntityByDto(SignupVerificationDto svDto) {
+    return SignupVerification.builder()
+      .setId(svDto.getId())
+      .setToken(svDto.getToken())
+      .setExpiredAt(svDto.getExpiredAt())
+      .setIsVerified(svDto.isVerified())
+      .setUser(svDto.getUser())
+      .setCreatedAt(svDto.getCreatedAt())
+      .build();
   }
 
   private SignupVerificationDto createSVDtoByUser(User user) {
     return SignupVerificationDto.builder()
-      .id(user.getId())
-      .token(generateAuthKeyService.GenerateSignupToken())
-      .createdAt(new Date())
-      .expiredAt(new Date()) // TODO: 22. 2. 15. 수정해야함
-      .user(user)
-      .isVerified(false)
+      .setId(user.getId())
+      .setToken(generateAuthKeyService.GenerateSignupToken())
+      .setCreatedAt(null) // TODO: 22. 2. 16. 맞는 값 넣기
+      .setExpiredAt(null) // TODO: 22. 2. 15. 추가 기간 더해서 수정해야함
+      .setUser(user)
+      .setIsVerified(false)
       .build();
   }
 

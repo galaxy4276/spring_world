@@ -1,16 +1,16 @@
 package spring.community.user.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import spring.community.helper.entity.FullTimeBaseEntity;
 
 import javax.persistence.*;
 
+@SuperBuilder(setterPrefix = "set")
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Getter
 @Table(name = "user_roles")
-public class UserRole {
+public class UserRole extends FullTimeBaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +23,5 @@ public class UserRole {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "role", referencedColumnName = "id")
   private Role role;
+
 }
