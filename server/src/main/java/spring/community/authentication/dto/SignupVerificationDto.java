@@ -4,15 +4,15 @@ import lombok.Builder;
 import lombok.Data;
 import spring.community.user.entity.User;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
-@Builder
+@Builder(setterPrefix = "set")
 public class SignupVerificationDto {
   private Long id;
   private String token;
-  private Date createdAt;
-  private Date expiredAt;
+  private LocalDateTime createdAt;
+  private LocalDateTime expiredAt;
   private User user;
   private boolean isVerified;
 
