@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring.community.authentication.dto.SignupRequestDto;
-import spring.community.authentication.service.AuthService;
+import spring.community.authentication.service.interfaces.AuthService;
 import javax.validation.Valid;
 
 
