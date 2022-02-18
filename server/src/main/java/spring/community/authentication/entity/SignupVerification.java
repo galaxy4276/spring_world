@@ -26,7 +26,6 @@ public class SignupVerification extends CreateTimeBaseEntity {
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "expired_at")
   private LocalDateTime expiredAt;
 

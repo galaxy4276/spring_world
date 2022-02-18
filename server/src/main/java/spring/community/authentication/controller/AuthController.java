@@ -1,6 +1,7 @@
 package spring.community.authentication.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import spring.community.authentication.dto.SignupRequestDto;
 import spring.community.helper.annotation.Draft;
 
@@ -8,7 +9,7 @@ import spring.community.helper.annotation.Draft;
 public interface AuthController {
 
   // 사용자 회원가입을 수행합니다.
-  ResponseEntity<Void> signup(SignupRequestDto signupDto) throws Exception;
+  ResponseEntity<Void> signup(SignupRequestDto signupDto);
 
   // 회원가입 진행 중 사용자 인증용 이메일을 발송합니다.
   void sendSignupCodeToEmail(String email);
