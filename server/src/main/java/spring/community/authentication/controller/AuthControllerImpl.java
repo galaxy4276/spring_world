@@ -3,6 +3,7 @@ package spring.community.authentication.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 
 @Tag(name = "인증 API", description = "사용자 인증을 수행합니다.")
 @RestController
+@Slf4j
 @RequestMapping("auth")
 public class AuthControllerImpl implements AuthController {
 
@@ -25,8 +27,10 @@ public class AuthControllerImpl implements AuthController {
   @Override
   @PostMapping("")
   @Operation(summary = "회원가입")
-  public ResponseEntity<Void> signup(@RequestBody @Valid SignupRequestDto signupRequestDto) throws Exception {
-    System.out.println(signupRequestDto.toString());
+  public ResponseEntity<Void> signup(
+    final @Valid @RequestBody SignupRequestDto signupRequestDto
+  ) {
+    log.debug("들어온 값: " + signupRequestDto.toString());
     authService.signup(signupRequestDto);
     return new ResponseEntity<Void>(HttpStatus.OK);
   }
