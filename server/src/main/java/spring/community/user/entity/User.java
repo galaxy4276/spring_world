@@ -1,6 +1,7 @@
 package spring.community.user.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import spring.community.authentication.entity.SignupVerification;
 import spring.community.helper.entity.FullTimeBaseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "users")
+@NoArgsConstructor
 public class User extends FullTimeBaseEntity {
 
   @Id
@@ -26,7 +28,7 @@ public class User extends FullTimeBaseEntity {
   @Column(name = "password", length = 64, nullable = false)
   private String password;
 
-  @Column(name = "email", nullable = false)
+  @Column(name = "email", nullable = false, unique = true)
   private String email;
 
   public UserDto toUserDto() {
