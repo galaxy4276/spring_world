@@ -3,6 +3,7 @@ package spring.community.authentication.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +17,10 @@ import javax.validation.Valid;
 @RestController
 @Slf4j
 @RequestMapping("auth")
+@AllArgsConstructor
 public class AuthControllerImpl implements AuthController {
 
   private final AuthService authService;
-
-  public AuthControllerImpl(AuthService authService) {
-    this.authService = authService;
-  }
 
   @Override
   @PostMapping("")
@@ -30,7 +28,6 @@ public class AuthControllerImpl implements AuthController {
   public ResponseEntity<Void> signup(
     final @Valid @RequestBody SignupRequestDto signupRequestDto
   ) {
-    log.debug("들어온 값: " + signupRequestDto.toString());
     authService.signup(signupRequestDto);
     return new ResponseEntity<Void>(HttpStatus.OK);
   }
