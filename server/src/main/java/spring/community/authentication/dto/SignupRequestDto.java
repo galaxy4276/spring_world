@@ -1,5 +1,6 @@
 package spring.community.authentication.dto;
 
+import lombok.Builder;
 import lombok.Data;
 import spring.community.user.dto.UserDto;
 import spring.community.user.entity.User;
@@ -7,6 +8,7 @@ import spring.community.user.entity.User;
 import javax.validation.constraints.*;
 
 @Data
+@Builder
 public class SignupRequestDto {
 
   @Pattern(
