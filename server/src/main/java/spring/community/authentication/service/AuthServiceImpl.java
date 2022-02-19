@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import spring.community.authentication.dto.SignupRequestDto;
 import spring.community.authentication.entity.SignupVerification;
+import spring.community.authentication.exception.AlreadyExistsUserException;
 import spring.community.authentication.repository.SignupVerificationRepository;
 import spring.community.authentication.service.interfaces.AuthDataHelpService;
 import spring.community.authentication.service.interfaces.AuthService;
@@ -14,6 +15,9 @@ import spring.community.user.repository.dao.UserRepository;
 
 import java.util.Optional;
 
+/**
+ * @desc 인증의 메인 기능이 구현됩니다.
+ */
 @Service
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -28,6 +32,7 @@ public class AuthServiceImpl implements AuthService {
   public void signup(SignupRequestDto signupRequestDto) {
     Optional<User> user =
       userRepository.findByEmail(signupRequestDto.getEmail());
+    System.out.println(user.toString());
     if (user.isPresent()) {
       System.out.println("이미 유저 있는데?");
       sendSignupVerificationUrl(user.get());
@@ -46,7 +51,7 @@ public class AuthServiceImpl implements AuthService {
     String newToken = generateAuthKeyService.GenerateSignupToken();
       if (signupVerification.isVerified()) {
         System.out.println("이미 인증처리까지 된 유저인데?");
-        return; // TODO: 22. 2. 15. 예외 응답 처리
+          throw new AlreadyExistsUserException(user.getEmail());
       }
       mailService.
         sendUserJoinVerificationMail(newToken, user.getName(), user.getEmail());
