@@ -29,6 +29,12 @@ public class ErrorResponse {
     this.code = code.getCode();
   }
 
+  private ErrorResponse(String message, final ErrorCode code, final List<FieldError> errors) {
+    this.message = message;
+    this.errors = errors;
+    this.code = code.getCode();
+  }
+
   public static ErrorResponse of(final ErrorCode code, final BindingResult result) {
     return new ErrorResponse(code, FieldError.of(result));
   }
@@ -39,6 +45,10 @@ public class ErrorResponse {
 
   public static ErrorResponse of(final ErrorCode code, final List<FieldError> errors) {
     return new ErrorResponse(code, errors);
+  }
+
+  public static ErrorResponse of(String message, final ErrorCode code, final List<FieldError> errors) {
+    return new ErrorResponse(message, code, errors);
   }
 
   @Getter

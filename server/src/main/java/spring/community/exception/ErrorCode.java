@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ErrorCode {
 
-  INVALID_INPUT_VALUE("C001", "입력 값이 잘못되었습니다."),
+  INVALID_INPUT_VALUE("IIV01", "입력 값이 잘못되었습니다."),
+  ALREADY_EXISTS_TARGET("AET01", "이미 존재하는 대상입니다."),
   ;
 
   private String code;

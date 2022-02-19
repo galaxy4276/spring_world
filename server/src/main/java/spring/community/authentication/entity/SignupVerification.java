@@ -1,6 +1,9 @@
 package spring.community.authentication.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import spring.community.authentication.dto.SignupVerificationDto;
 import spring.community.helper.entity.CreateTimeBaseEntity;
@@ -13,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "signup_verification")
+@NoArgsConstructor
 public class SignupVerification extends CreateTimeBaseEntity {
 
   @Id

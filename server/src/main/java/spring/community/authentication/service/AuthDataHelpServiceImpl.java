@@ -23,17 +23,19 @@ public class AuthDataHelpServiceImpl implements AuthDataHelpService {
 
   @Override
   public SignupVerification findOrCreateSVByUser(User user) {
-    return signupVerificationRepository.findByUserId(user.getId())
-      .orElseGet(() -> {
-        SignupVerification newSV = createSVEntityByDto(createSVDtoByUser(user));
-        signupVerificationRepository.save(newSV);
-        return newSV;
-      });
+    SignupVerification signupVerification = signupVerificationRepository.findByUserId(user.getId())
+      .orElseGet(() ->  createSVEntityByUser(user));
+    signupVerificationRepository.save(signupVerification);
+    return signupVerification;
   }
 
   @Override
   public LocalDateTime getExpiredDateByNow(Integer minutes) {
     return LocalDateTime.now().plusMinutes(minutes);
+  }
+
+  private SignupVerification createSVEntityByUser(User user) {
+    return createSVEntityByDto(createSVDtoByUser(user));
   }
 
   private SignupVerification createSVEntityByDto(SignupVerificationDto svDto) {
@@ -49,7 +51,7 @@ public class AuthDataHelpServiceImpl implements AuthDataHelpService {
 
   private SignupVerificationDto createSVDtoByUser(User user) {
     return SignupVerificationDto.builder()
-      .setId(user.getId())
+      .setId(null)
       .setToken(generateAuthKeyService.GenerateSignupToken())
       .setExpiredAt(getExpiredDateByNow(30))
       .setUser(user)

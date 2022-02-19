@@ -1,10 +1,14 @@
 package spring.community.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import spring.community.authentication.exception.AlreadyExistsUserException;
+
+import java.util.List;
 
 @RestControllerAdvice
 @Slf4j
@@ -21,4 +25,16 @@ public class GlobalExceptionHandler {
     final ErrorResponse errResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, ex.getBindingResult());
     return ResponseEntity.badRequest().body(errResponse);
   }
+
+  @ExceptionHandler(AlreadyExistsUserException.class)
+  public ResponseEntity<ErrorResponse> handleAlreadyExistsUserException(
+    AlreadyExistsUserException ex
+  ) {
+    log.error("handleAlreadyExistsUserException", ex);
+    List<ErrorResponse.FieldError> errors =
+      ErrorResponse.FieldError.of(ex.getEmail(), "", "이미 회원가입 된 유저입니다.");
+    final ErrorResponse errorResponse = ErrorResponse.of(ex.getMessage(), ex.getErrorCode(), errors);
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+  }
+
 }
