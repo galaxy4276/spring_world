@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import spring.community.authentication.entity.SignupVerification;
 import spring.community.helper.entity.FullTimeBaseEntity;
-import spring.community.helper.entity.FullTimeDate;
 import spring.community.user.dto.UserDto;
 
 import javax.persistence.*;
