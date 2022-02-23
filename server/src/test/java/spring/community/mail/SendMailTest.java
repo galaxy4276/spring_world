@@ -1,16 +1,15 @@
 package spring.community.mail;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@DisplayName("메일 송신 테스트")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ExtendWith(MockitoExtension.class)
 public class SendMailTest {
 
-  @Autowired
-  private MailService mailService;
+  @Mock
+  MailService mailService;
 
   @Test
   void 이메일이_정상적으로_수신된다() {
@@ -20,7 +19,6 @@ public class SendMailTest {
     mailDto.setMessage("est");
 
     mailService.sendMail(mailDto);
-
   }
 
 }
