@@ -3,9 +3,7 @@ package spring.community.mail;
 import lombok.AllArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import spring.community.authentication.service.interfaces.GenerateAuthKeyService;
 
 @Service
 @AllArgsConstructor

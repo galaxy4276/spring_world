@@ -48,4 +48,16 @@ public class User extends FullTimeBaseEntity {
   @OneToOne(mappedBy = "user")
   private SignupVerification signupVerification;
 
+  public void changeName(String name) {
+    this.name = name;
+  }
+
+  public void changeEmail(String email) {
+    this.email = email;
+  }
+
+  public void changePassword(String password) {
+    this.password = password;
+  }
+
 }

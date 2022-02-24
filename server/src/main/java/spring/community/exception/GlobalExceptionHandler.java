@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import spring.community.authentication.exception.AlreadyExistsUserException;
+import spring.community.authentication.exception.AlreadyUserNameException;
 
 import java.util.List;
 
@@ -32,7 +33,17 @@ public class GlobalExceptionHandler {
   ) {
     log.error("handleAlreadyExistsUserException", ex);
     List<ErrorResponse.FieldError> errors =
-      ErrorResponse.FieldError.of(ex.getEmail(), "", "이미 회원가입 된 유저입니다.");
+      ErrorResponse.FieldError.of(ex.getEmail(), "", ex.getMessage());
+    final ErrorResponse errorResponse = ErrorResponse.of(ex.getMessage(), ex.getErrorCode(), errors);
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+  }
+
+  @ExceptionHandler(AlreadyUserNameException.class)
+  public ResponseEntity<ErrorResponse> handleAlreadyUserNameException(
+    AlreadyUserNameException ex
+  ) {
+    List<ErrorResponse.FieldError> errors =
+      ErrorResponse.FieldError.of(ex.getName(), "", ex.getMessage());
     final ErrorResponse errorResponse = ErrorResponse.of(ex.getMessage(), ex.getErrorCode(), errors);
     return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
   }
