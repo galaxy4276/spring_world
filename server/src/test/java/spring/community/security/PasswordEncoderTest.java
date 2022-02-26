@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import spring.community.authentication.dto.SignupRequestDto;
 import spring.community.user.entity.User;
 import spring.community.user.repository.dao.UserRepository;
-import spring.community.user.service.UserServiceImpl;
+import spring.community.authentication.service.UserAuthServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class PasswordEncoderTest {
@@ -27,7 +27,7 @@ public class PasswordEncoderTest {
   PasswordEncoder passwordEncoder;
 
   @InjectMocks
-  UserServiceImpl userService;
+  UserAuthServiceImpl userAuthService;
 
   final PasswordEncoder localPasswordEncoder = new BCryptPasswordEncoder();
   String plainPassword = "@Umjunsik123";
@@ -58,7 +58,7 @@ public class PasswordEncoderTest {
     given(userRepository.save(any(User.class))).willReturn(userFromDto);
 
     // when
-    User user = userService.createUserByRequestDto(dto);
+    User user = userAuthService.createUserByDto(dto);
 
     // then
     assertThat(user).isInstanceOf(User.class);
