@@ -12,7 +12,4 @@ public interface UserService {
 
   public List<User> findAll();
 
-  // Dto 로부터 전달된 사용자 객체 정보를 DB에 반영하고 반환합니다.
-  public User createUserByRequestDto(SignupRequestDto dto);
-
 }

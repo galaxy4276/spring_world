@@ -22,7 +22,9 @@ public class UserAuthServiceImpl implements UserAuthService {
 
   @Override
   public User createUserByDto(SignupRequestDto signupRequestDto) {
-    encodeDtoPassword(signupRequestDto);
+    signupRequestDto.setPassword(
+      passwordEncoder.encode(signupRequestDto.getPassword())
+    );
     return userRepository.save(signupRequestDto.toUserEntity());
   }
 
@@ -43,12 +45,6 @@ public class UserAuthServiceImpl implements UserAuthService {
       user.changeEmail(signupRequestDto.getEmail());
       user.changePassword(passwordEncoder.encode(user.getPassword()));
     }
-  }
-
-  private void encodeDtoPassword(SignupRequestDto signupRequestDto) {
-    signupRequestDto.setPassword(
-      passwordEncoder.encode(signupRequestDto.getPassword())
-    );
   }
 
 }

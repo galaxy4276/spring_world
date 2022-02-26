@@ -3,7 +3,6 @@ package spring.community.user.service;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import spring.community.authentication.dto.SignupRequestDto;
 import spring.community.user.entity.User;
 import spring.community.user.repository.dao.UserRepository;
 import spring.community.user.service.interfaces.UserService;
@@ -16,7 +15,6 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
-  private final PasswordEncoder passwordEncoder;
 
   @Deprecated
   public Optional<User> findById(Long id) {
@@ -28,9 +26,4 @@ public class UserServiceImpl implements UserService {
      return userRepository.findAll();
   }
 
-  @Override
-  public User createUserByRequestDto(SignupRequestDto dto) {
-    dto.setPassword(passwordEncoder.encode(dto.getPassword()));
-    return userRepository.save(dto.toUserEntity());
-  }
 }
