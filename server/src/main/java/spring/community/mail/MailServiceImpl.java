@@ -30,7 +30,7 @@ public class MailServiceImpl implements MailService {
       "'이런 서버쟁이들' 서버 개발자들의 소통 서비스에 가입해주셔서 감사합니다.\n" +
         "아래 URL 을 클릭하여 메일 인증을 수행해주세요." +
         "url: " + "http://localhost/auth/signup/mail/verification/" +
-        token
+        token + "?email=" + email
     );
     mailSender.send(ctx);
   }
