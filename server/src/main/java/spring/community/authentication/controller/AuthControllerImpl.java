@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring.community.authentication.dto.SignupRequestDto;
-import spring.community.authentication.service.interfaces.AuthService;
+import spring.community.authentication.service.AuthServiceImpl;
 import javax.validation.Valid;
 
 
@@ -20,10 +20,10 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class AuthControllerImpl implements AuthController {
 
-  private final AuthService authService;
+  private final AuthServiceImpl authService;
 
   @Override
-  @PostMapping("")
+  @PostMapping("signup")
   @Operation(summary = "회원가입")
   public ResponseEntity<Void> signup(
     final @Valid @RequestBody SignupRequestDto signupRequestDto
@@ -33,7 +33,14 @@ public class AuthControllerImpl implements AuthController {
   }
 
   @Override
-  public void sendSignupCodeToEmail(String email) {}
+  @GetMapping("signup/verification/{token}")
+  public ResponseEntity<Void> verifyUser(
+    @PathVariable("token") String token,
+    @RequestParam(value = "email") String email
+  ) {
+    authService.verifyUserByToken(token, email);
+    return new ResponseEntity<Void>(HttpStatus.OK);
+  }
 
   @Override
   public void isCheckUserUrlAuth(String email) {}
