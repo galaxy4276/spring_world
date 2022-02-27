@@ -1,7 +1,6 @@
 package spring.community.authentication.entity;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "signup_verification")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SignupVerification extends CreateTimeBaseEntity {
 
   @Id
@@ -45,6 +44,14 @@ public class SignupVerification extends CreateTimeBaseEntity {
       .setIsVerified(isVerified)
       .setCreatedAt(createdAt)
       .build();
+  }
+
+  public void changeToken(String token) {
+    this.token = token;
+  }
+
+  public void verifyingUser() {
+    this.isVerified = true;
   }
 
 }
