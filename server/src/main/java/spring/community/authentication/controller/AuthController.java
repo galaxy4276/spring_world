@@ -11,8 +11,8 @@ public interface AuthController {
   // 사용자 회원가입을 수행합니다.
   ResponseEntity<Void> signup(SignupRequestDto signupDto);
 
-  // 회원가입 진행 중 사용자 인증용 이메일을 발송합니다.
-  void sendSignupCodeToEmail(String email);
+  // 토큰 데이터 기반으로 사용자의 이메일 인증을 수행합니다.
+  ResponseEntity<Void> verifyUser(String token, String email);
 
   // 해당 이메일 사용자가 URL 인증을 수행한 유저인 지 반환합니다.
   void isCheckUserUrlAuth(String email);

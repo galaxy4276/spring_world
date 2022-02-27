@@ -17,7 +17,7 @@ public class AuthExceptionHandler {
     AlreadyExistsUserException ex
   ) {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(
-      getErrorResponseByConflict(ex.getEmail(), ex)
+      getErrorResponse(ex.getEmail(), ex)
     );
   }
 
@@ -26,11 +26,19 @@ public class AuthExceptionHandler {
     AlreadyUserNameException ex
   ) {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(
-      getErrorResponseByConflict(ex.getName(), ex)
+      getErrorResponse(ex.getName(), ex)
     );
   }
 
-  private ErrorResponse getErrorResponseByConflict(String target, BusinessException ex) {
+  @ExceptionHandler(VerifyCodeExpiredException.class)
+  public ResponseEntity<ErrorResponse> handleExpiredCodeException(
+    VerifyCodeExpiredException ex
+  ) {
+    ErrorResponse response = getErrorResponse(ex.getEmail(), ex);
+    return ResponseEntity.status(HttpStatus.GONE).body(response);
+  }
+
+  private ErrorResponse getErrorResponse(String target, BusinessException ex) {
     String message = ex.getMessage();
     List<ErrorResponse.FieldError> errors =
       ErrorResponse.FieldError.of(target, "", message);

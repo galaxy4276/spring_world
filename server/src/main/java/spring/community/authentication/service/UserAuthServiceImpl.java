@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import spring.community.authentication.dto.SignupRequestDto;
 import spring.community.authentication.entity.SignupVerification;
+import spring.community.authentication.exception.AlreadyExistsUserException;
 import spring.community.authentication.exception.AlreadyUserNameException;
 import spring.community.authentication.service.interfaces.UserAuthService;
 import spring.community.user.entity.User;
@@ -44,7 +45,8 @@ public class UserAuthServiceImpl implements UserAuthService {
       user.changeName(signupRequestDto.getUsername());
       user.changeEmail(signupRequestDto.getEmail());
       user.changePassword(passwordEncoder.encode(user.getPassword()));
-    }
+    } else
+      throw new AlreadyExistsUserException(user.getEmail());
   }
 
 }
