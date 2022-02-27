@@ -7,6 +7,7 @@ import spring.community.authentication.entity.SignupVerification;
 import spring.community.authentication.repository.SignupVerificationRepository;
 import spring.community.authentication.service.interfaces.AuthDataHelpService;
 import spring.community.authentication.service.interfaces.GenerateAuthKeyService;
+import spring.community.exception.NotFoundTargetException;
 import spring.community.user.entity.User;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,18 @@ public class AuthDataHelpServiceImpl implements AuthDataHelpService {
       .orElseGet(() ->  createSVEntityByUser(user));
     signupVerificationRepository.save(signupVerification);
     return signupVerification;
+  }
+
+  @Override
+  public SignupVerification getSVByEmailOrThrow(String email) {
+    return this.signupVerificationRepository.findByUserEmail(email)
+      .orElseThrow(NotFoundTargetException::new);
+  }
+
+  @Override
+  public void verifyingUser(SignupVerification signupVerification) {
+    signupVerification.verifyingUser();
+    signupVerificationRepository.save(signupVerification);
   }
 
   @Override
