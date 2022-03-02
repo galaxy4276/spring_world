@@ -34,6 +34,7 @@ public class AuthControllerImpl implements AuthController {
 
   @Override
   @GetMapping("signup/verification/{token}")
+  @Operation(summary = "회원가입 이메일 인증")
   public ResponseEntity<Void> verifyUser(
     @PathVariable("token") String token,
     @RequestParam(value = "email") String email
