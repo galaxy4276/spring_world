@@ -1,6 +1,8 @@
 package spring.community.authentication;
 
 import static org.assertj.core.api.Assertions.*;
+import static spring.community.authentication.dto.SignupRequestError.*;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,12 +19,15 @@ public class SignupRequestDtoValidationTest {
   static ValidatorFactory validatorFactory;
   static Validator validator;
 
-  SignupRequestDto signupRequestDto;
-
   final String correctUsername = "User12";
   final String correctPassword = "@Testisgood12";
   final String correctEmail = "test12@test.com";
 
+  SignupRequestDto signupRequestDto = SignupRequestDto.builder()
+    .username(correctUsername)
+    .password(correctPassword)
+    .email(correctEmail)
+    .build();
 
   @BeforeAll
   public static void init() {
@@ -34,59 +39,44 @@ public class SignupRequestDtoValidationTest {
   @Test
   void shortUsernameException() {
     // given
-    signupRequestDto = SignupRequestDto.builder()
-      .username("sd")
-      .password(correctPassword)
-      .email(correctEmail)
-      .build();
-
+    signupRequestDto.setUsername("hi");
     // when
     Set<ConstraintViolation<SignupRequestDto>> violations =
       validator.validate(signupRequestDto);
-
     // then
-    violations.forEach(e -> {
-      assertThat(e.getMessage()).isEqualTo("사용자 이름 형식이 맞지 않습니다.");
-    });
+    assertErrorMessage(violations, FaultPatternName);
   }
 
   @DisplayName("패스워드 형식이 맞지 않을 경우 예외처리 된다.")
   @Test
   void faultPasswordException() {
-    //given
-    signupRequestDto = SignupRequestDto.builder()
-      .username(correctUsername)
-      .password("jangbibibi12")
-      .email(correctEmail)
-      .build();
-
+    // given
+    signupRequestDto.setPassword("jangbibibi12");
     // when
     Set<ConstraintViolation<SignupRequestDto>> violations =
       validator.validate(signupRequestDto);
-
     // then
-    violations.forEach(e -> {
-      assertThat(e.getMessage()).isEqualTo("비밀번호 형식이 맞지 않습니다.");
-    });
+    assertErrorMessage(violations, FaultPatternPassword);
   }
 
   @DisplayName("이메일 형식이 맞지 않는경우 예외처리 된다.")
   @Test
   void faultEmailException() {
-    //given
-    signupRequestDto = SignupRequestDto.builder()
-      .username(correctUsername)
-      .password(correctPassword)
-      .email("umjunsik!")
-      .build();
-
+    // given
+    signupRequestDto.setEmail("umjunsik!");
     // when
     Set<ConstraintViolation<SignupRequestDto>> violations =
       validator.validate(signupRequestDto);
-
     // then
+    assertErrorMessage(violations, FaultPatternEmail);
+  }
+
+  private void assertErrorMessage(
+    Set<ConstraintViolation<SignupRequestDto>> violations,
+    String message) {
     violations.forEach(e -> {
-      assertThat(e.getMessage()).isEqualTo("이메일 형식이 아닙니다.");
+      assertThat(e.getMessage()).isEqualTo(message);
     });
   }
+
 }
