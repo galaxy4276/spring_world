@@ -1,6 +1,5 @@
 package spring.community.authentication.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import lombok.AllArgsConstructor;
@@ -8,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import spring.community.authentication.controller.swagger.CheckUserSignupVerificationDocs;
+import spring.community.authentication.controller.swagger.SignupDocs;
+import spring.community.authentication.controller.swagger.VerifyUserDocs;
 import spring.community.authentication.dto.SignupRequestDto;
 import spring.community.authentication.dto.UserVerifiedRequestDto;
 import spring.community.authentication.dto.UserVerifiedResponseDto;
@@ -26,7 +28,7 @@ public class AuthControllerImpl implements AuthController {
 
   @Override
   @PostMapping("signup")
-  @Operation(summary = "회원가입")
+  @SignupDocs
   public ResponseEntity<Void> signup(
     final @Valid @RequestBody SignupRequestDto signupRequestDto
   ) {
@@ -36,7 +38,7 @@ public class AuthControllerImpl implements AuthController {
 
   @Override
   @GetMapping("signup/verification/{token}")
-  @Operation(summary = "회원가입 이메일 인증")
+  @VerifyUserDocs
   public ResponseEntity<Void> verifyUser(
     @PathVariable("token") String token,
     @RequestParam(value = "email") String email
@@ -46,8 +48,8 @@ public class AuthControllerImpl implements AuthController {
   }
 
   @Override
-  @PostMapping("signup/mail/user")
-  @Operation(summary = "회원 인증여부 체크")
+  @PostMapping("signup/user/verification")
+  @CheckUserSignupVerificationDocs
   public ResponseEntity<UserVerifiedResponseDto> isCheckUserUrlAuth(
     final @Valid @RequestBody UserVerifiedRequestDto userVerifiedRequestDto) {
     boolean isVerifiedAt =
