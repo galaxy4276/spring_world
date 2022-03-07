@@ -8,14 +8,15 @@ import spring.community.authentication.dto.SignupRequestDto;
 import spring.community.authentication.entity.SignupVerification;
 import spring.community.authentication.exception.AlreadyExistsUserException;
 import spring.community.authentication.exception.VerifyCodeExpiredException;
+import spring.community.authentication.repository.SignupVerificationRepository;
 import spring.community.authentication.service.interfaces.AuthService;
 import spring.community.exception.InvalidValueException;
+import spring.community.exception.NotFoundTargetException;
 import spring.community.mail.MailServiceImpl;
 import spring.community.user.entity.User;
 import spring.community.user.repository.dao.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * @desc 인증의 메인 기능이 구현됩니다.
@@ -31,6 +32,7 @@ public class AuthServiceImpl implements AuthService {
   private final MailServiceImpl mailService;
   private final GenerateAuthKeyServiceImpl generateAuthKeyService;
   private final BCryptPasswordEncoder encoder;
+  private final SignupVerificationRepository signupVerificationRepository;
 
   @Override
   public void signup(SignupRequestDto signupRequestDto) {
@@ -72,19 +74,28 @@ public class AuthServiceImpl implements AuthService {
   public void verifyUserByToken(String token, String email) {
     SignupVerification signupVerification
       = authDataHelpService.getSVByEmailOrThrow(email);
-    LocalDateTime nowTime = LocalDateTime.now();
-    if (nowTime.isAfter(signupVerification.getExpiredAt()))
-      throw new VerifyCodeExpiredException(email);
-    if (Objects.equals(signupVerification.getToken(), token))
-      authDataHelpService.verifyingUser(signupVerification);
-    else
-      throw new InvalidValueException("token", token);
+    checkTokenTimeout(signupVerification.getExpiredAt(), email);
+    checkEffectiveToken(token, signupVerification.getToken());
+    authDataHelpService.verifyingUser(signupVerification);
   }
 
-  private void updateUnVerifiedUserInfo(User user, SignupRequestDto dto) {
-    user.changeName(dto.getUsername());
-    user.changeEmail(dto.getEmail());
-    user.changePassword(encoder.encode(user.getPassword()));
+  @Override
+  public boolean getUserVerifiedAt(String email) {
+    SignupVerification signupVerification =
+      signupVerificationRepository.findByUserEmail(email)
+        .orElseThrow(NotFoundTargetException::new);
+    return signupVerification.isVerified();
+  }
+
+  private void checkTokenTimeout(LocalDateTime expiredAt, String email) {
+    LocalDateTime nowTime = LocalDateTime.now();
+    if (nowTime.isAfter(expiredAt))
+      throw new VerifyCodeExpiredException(email);
+  }
+
+  private void checkEffectiveToken(String inputToken, String userToken) {
+    if (!encoder.matches(inputToken, userToken))
+      throw new InvalidValueException("token", inputToken);
   }
 
 }
