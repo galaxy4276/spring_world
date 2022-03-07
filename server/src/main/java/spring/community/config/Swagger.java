@@ -24,10 +24,10 @@ public class Swagger {
   }
 
   public ApiInfo getApiInfo() {
-    String apiName = "spring_world_api";
+    String apiName = "이런 서버쟁이들 API Docs";
     return new ApiInfoBuilder()
             .title(apiName)
-            .description("스프링으로 구현하는 유지보수성, 안정성 높은 웹 커뮤니티 서비스")
+            .description("스프링으로 구현하는 웹 애플리케이션 서비스")
             .build();
   }
 }
