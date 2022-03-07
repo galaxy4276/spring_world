@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring.community.authentication.dto.SignupRequestDto;
+import spring.community.authentication.dto.UserVerifiedRequestDto;
+import spring.community.authentication.dto.UserVerifiedResponseDto;
 import spring.community.authentication.service.AuthServiceImpl;
 import javax.validation.Valid;
 
@@ -29,7 +31,7 @@ public class AuthControllerImpl implements AuthController {
     final @Valid @RequestBody SignupRequestDto signupRequestDto
   ) {
     authService.signup(signupRequestDto);
-    return new ResponseEntity<Void>(HttpStatus.OK);
+    return ResponseEntity.status(HttpStatus.OK).build();
   }
 
   @Override
@@ -40,11 +42,19 @@ public class AuthControllerImpl implements AuthController {
     @RequestParam(value = "email") String email
   ) {
     authService.verifyUserByToken(token, email);
-    return new ResponseEntity<Void>(HttpStatus.OK);
+    return ResponseEntity.status(HttpStatus.OK).build();
   }
 
   @Override
-  public void isCheckUserUrlAuth(String email) {}
+  @PostMapping("signup/mail/user")
+  @Operation(summary = "회원 인증여부 체크")
+  public ResponseEntity<UserVerifiedResponseDto> isCheckUserUrlAuth(
+    final @Valid @RequestBody UserVerifiedRequestDto userVerifiedRequestDto) {
+    boolean isVerifiedAt =
+      authService.getUserVerifiedAt(userVerifiedRequestDto.getEmail());
+    UserVerifiedResponseDto responseBody = UserVerifiedResponseDto.of(isVerifiedAt);
+    return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+  }
 
   @Override
   public void login() {}
@@ -54,4 +64,5 @@ public class AuthControllerImpl implements AuthController {
 
   @Override
   public void verifyOneTimePassword() {}
+
 }

@@ -14,6 +14,9 @@ public interface AuthService {
   // 사용자에게 회원가입 이메일 url 을 전송합니다.
   void sendSignupVerificationUrl(SignupVerification signupVerification, User user);
 
+  // 사용자의 인증 여부를 반환합니다. ( boolean )
+  boolean getUserVerifiedAt(String email);
+
   // 토큰 값 기반으로 사용자 인증 처리를 진행합니다.
   void verifyUserByToken(String token, String email);
 
