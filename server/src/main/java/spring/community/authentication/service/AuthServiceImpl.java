@@ -64,8 +64,6 @@ public class AuthServiceImpl implements AuthService {
   ) {
     String newToken = generateAuthKeyService.GenerateSignupToken();
     signupVerification.changeToken(newToken);
-      if (signupVerification.isVerified())
-          throw new AlreadyExistsUserException(user.getEmail());
       mailService.
         sendUserJoinVerificationMail(newToken, user.getName(), user.getEmail());
   }
